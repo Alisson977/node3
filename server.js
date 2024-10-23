@@ -1,8 +1,10 @@
+
 //importação da função randomUUID
 const { randomUUID } = require("crypto")
 //importação do framework express
 const express = require("express")
 
+    const Banco 
 const app = express()
 
 app.use(express.json())
