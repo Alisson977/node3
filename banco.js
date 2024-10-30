@@ -4,6 +4,7 @@ const sqlite3 = require('sqlite3')
     class Banco{
      
         constructor(){
+         this.criarTabela()
             
         }
         async sqlConnection() {
@@ -17,7 +18,7 @@ const sqlite3 = require('sqlite3')
         }
         
         async criarTabela() {
-            const banco = await sqlConnection();
+            const banco = await this.sqlConnection();
         
             const tabela = `CREATE TABLE IF NOT EXISTS alunos (
                             id integer PRIMARY KEY AUTOINCREMENT,
@@ -31,24 +32,24 @@ const sqlite3 = require('sqlite3')
         
         async inserir(aluno) {
             const {uuid, nome, email} = aluno;
-            const banco = await sqlConnection();
+            const banco = await this.sqlConnection();
             await banco.run("INSERT INTO alunos (uuid, nome, email) values (?, ?, ?)", uuid, nome, email)
         }
         
         async remover (id) {
-            const banco = await sqlConnection();
+            const banco = await this.sqlConnection();
             await banco.run("DELETE FROM alunos WHERE id = ?", id)
         }
         
         async atualizar (aluno) {
         
             const {nome, email, id} = aluno
-            const banco = await sqlConnection();
+            const banco = await this.sqlConnection();
             await banco.run("UPDATE alunos SET nome = ?, email = ? WHERE id = ?",nome, email, id)
         }
         
         async listar () {
-            const banco = await sqlConnection();
+            const banco = await this.sqlConnection();
             const result = await banco.run("SELECT * FROM alunos")
             console.log(result)
             return result
