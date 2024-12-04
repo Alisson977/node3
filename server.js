@@ -3,10 +3,12 @@
 const { randomUUID } = require("crypto")
 //importação do framework express
 const express = require("express")
+const cors = require("cors")
 
-    const Banco = require('./banco.js')
+const Banco = require('./banco.js')
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 
 const banco = new Banco()
